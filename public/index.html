@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Route a task queue across a three-tier model ladder: cheapest sufficient model first, verify every attempt, escalate when the self-check fails.">
+  <title>Tier Router — cheapest-sufficient model routing lab</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+<!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell --><!-- pb-back --><link rel="stylesheet" href="./pb-back.css"><!-- pb-back --></head>
+<body>
+<main>
+  <nav aria-label="Primary"><a aria-current="page" href="/">Lab</a><a href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/anthropic-agent-stack">Source</a></nav>
+  <header class="hero">
+    <div><p class="eyebrow">Tier Router · cheapest-sufficient model routing</p><h1>The flagship model is a routing decision, not a default.</h1><p class="lede">Run a task queue through a three-tier model ladder — <strong>volume</strong> (Haiku-class), <strong>balanced</strong> (Sonnet-class), <strong>judgment</strong> (Opus-class) — with a self-check after every attempt. Watch cheap-first routing hold quality while the always-flagship baseline burns budget, and watch unverified cheap routing quietly ship wrong answers.</p></div>
+    <p class="warning"><strong>Safe educational demo.</strong> Mock models, deterministic checks, illustrative cost units — no API calls, no real models, nothing leaves your browser.</p>
+  </header>
+
+  <section class="workspace" aria-label="Routing lab">
+    <section class="panel controls" aria-labelledby="controls-title">
+      <div><p class="eyebrow">Queue</p><h2 id="controls-title">Pick a workload and a policy</h2></div>
+      <label for="workload">Workload<select id="workload"></select></label>
+      <label for="policy">Routing policy<select id="policy"></select></label>
+      <button id="run" type="button">Run the queue</button>
+      <p class="muted">Every task carries a <strong>true difficulty</strong> and a cheaper <strong>estimated difficulty</strong> — the estimator is fallible, which is exactly why verification exists.</p>
+      <p id="workload-desc" class="muted"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="ladder-title">
+      <div><p class="eyebrow">The ladder</p><h2 id="ladder-title">Three tiers, ascending cost</h2></div>
+      <ol id="ladder" class="ladder" aria-label="Model tier ladder"></ol>
+      <p class="muted">Capability = the hardest difficulty a tier can reliably handle. Cost = per unit of work. Verify = a fraction of a volume-tier attempt.</p>
+    </section>
+  </section>
+
+  <section class="workspace" aria-label="Results">
+    <section class="panel" aria-labelledby="trace-title">
+      <div class="section-heading"><div><p class="eyebrow">Trace</p><h2 id="trace-title">Task-by-task routing</h2></div><span id="status" class="badge" role="status" aria-live="polite">Ready</span></div>
+      <ol id="trace" class="trace" aria-label="Per-task routing trace"></ol>
+    </section>
+
+    <section class="panel" aria-labelledby="ledger-title">
+      <div><p class="eyebrow">Ledger</p><h2 id="ledger-title">All three policies, side by side</h2></div>
+      <div class="ledger-wrap"><table id="ledger" class="ledger"><caption class="muted">Same workload, three policies. Cost in illustrative units.</caption></table></div>
+      <p class="muted"><strong>accepted-wrong</strong> is the dangerous row — the work shipped, nobody checked, and it was wrong.</p>
+    </section>
+  </section>
+
+  <p class="page-foot"><a href="/guide.html">Read the routing guide</a> · <a href="https://github.com/anhquanbd2021/anthropic-agent-stack">Inspect source and tests</a></p>
+</main>
+<script type="module" src="/app.js"></script>
+<!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/anthropic-agent-stack" title="anthropic-agent-stack — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>anthropic-agent-stack</b><i>DEMO</i></a><!-- pb-shell --><!-- pb-back --><a class="pb-back" id="pb-back" href="https://github.com/anhquanbd2021/anthropic-agent-stack" title="Back to the article — anthropic-agent-stack">← Article <i>PLAYBOOK</i></a><script>(function(){var a=document.getElementById('pb-back');if(!a)return;var h=location.hostname;if(/^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(h)){a.href='//'+h+':'+(/^(localhost|127\.0\.0\.1)$/.test(h)?'1234':'30082')+'/microsites/article.html?slug=anthropic-agent-stack';}})();</script><!-- pb-back --></body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "anthropic-agent-stack-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tier Router — route a task queue across a three-tier model ladder, verify each attempt, escalate when the self-check fails.",
+  "scripts": {
+    "start": "node app/server.js",
+    "report": "node scripts/report.mjs",
+    "test": "node --test \"test/*.test.mjs\"",
+    "check": "npm test && npm run report"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

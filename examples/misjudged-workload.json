@@ -1,0 +1,12 @@
+{
+  "name": "misjudged-workload",
+  "description": "The estimator's bad week: every task looks easy and isn't. Cheap-first routing plus verification still lands them — one escalation at a time.",
+  "tasks": [
+    { "id": "m01", "name": "\"Just dedupe the list\" (locale collation)", "estimatedDifficulty": 1, "trueDifficulty": 5, "units": 4 },
+    { "id": "m02", "name": "\"Copy the cron job\" (timezone semantics)", "estimatedDifficulty": 1, "trueDifficulty": 6, "units": 5 },
+    { "id": "m03", "name": "\"Rename the field\" (schema migration)", "estimatedDifficulty": 2, "trueDifficulty": 8, "units": 6 },
+    { "id": "m04", "name": "\"Summarize the thread\" (legal privilege)", "estimatedDifficulty": 2, "trueDifficulty": 7, "units": 3 },
+    { "id": "m05", "name": "\"Patch the regex\" (ReDoS lurking)", "estimatedDifficulty": 1, "trueDifficulty": 9, "units": 4 },
+    { "id": "m06", "name": "\"Retry the payment\" (idempotency)", "estimatedDifficulty": 2, "trueDifficulty": 8, "units": 7 }
+  ]
+}

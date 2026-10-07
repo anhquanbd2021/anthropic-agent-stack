@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="How cheapest-sufficient routing, verification, and escalation work in the Tier Router lab.">
+  <title>Tier Router — guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+<!-- pb-shell --><link rel="stylesheet" href="./pb-shell.css"><!-- pb-shell --><!-- pb-back --><link rel="stylesheet" href="./pb-back.css"><!-- pb-back --></head>
+<body>
+<main class="guide">
+  <nav aria-label="Primary"><a href="/">Lab</a><a aria-current="page" href="/guide.html">Guide</a><a href="https://github.com/anhquanbd2021/anthropic-agent-stack">Source</a></nav>
+  <p class="eyebrow">Tier Router · routing guide</p>
+  <h1>Routing guide</h1>
+
+  <h3>The one rule</h3>
+  <p>Send each task to the <strong>cheapest model that can actually do it</strong> — then verify. The ladder exists so you can stop paying judgment-tier prices for volume-tier work, and stop shipping volume-tier answers to judgment-tier problems.</p>
+
+  <h3>How the lab models it</h3>
+  <ul>
+    <li><strong>Difficulty</strong> — every task has a <em>true</em> difficulty (what it actually needs) and an <em>estimated</em> difficulty (what your cheap classifier guessed). Estimates are wrong sometimes — that is the point.</li>
+    <li><strong>Capability</strong> — every tier has a capability ceiling. A tier produces a passing answer only when <code>capability ≥ trueDifficulty</code>.</li>
+    <li><strong>Verification</strong> — a self-check runs after every attempt and costs a fraction of a volume attempt (<code>VERIFY_RATE = 0.2</code> units per unit of work). If it fails, the router escalates one tier and retries.</li>
+    <li><strong>Cost</strong> — each attempt bills <code>costPerUnit × units</code>; each verification bills the verify rate. The ledger keeps the books.</li>
+  </ul>
+
+  <h3>The three policies</h3>
+  <ul>
+    <li><strong>Routed + verified</strong> — cheapest sufficient tier from the estimate, verify, escalate on fail. Usually the cheapest way to get every task right.</li>
+    <li><strong>Always flagship</strong> — judgment tier for everything, verified. Same correctness, at ladder-top prices.</li>
+    <li><strong>Cheapest, unverified</strong> — volume tier, no self-check. Lowest bill on paper; watch the <em>accepted-wrong</em> column.</li>
+  </ul>
+
+  <h3>What to look for</h3>
+  <ul>
+    <li>On <strong>mixed-workload</strong>: t09 and t10 are estimated easy and aren't — watch them climb the ladder one tier per failed self-check.</li>
+    <li>On <strong>misjudged-workload</strong>: the estimator is wrong about everything. Routed+verified still lands every task — but the retry burn makes it cost <em>more</em> than always-flagship. Verification is the floor; the estimator is where the savings live.</li>
+    <li>The ledger row <strong>accepted-wrong</strong> is the failure verification exists to catch.</li>
+  </ul>
+
+  <h3>Honest limits</h3>
+  <ul>
+    <li>Capabilities, difficulties, and costs are illustrative units — not real model prices or benchmark scores.</li>
+    <li>"Verification" is a deterministic capability check, not a real LLM eval. Real verifiers have their own error rates and their own cost curve.</li>
+    <li>The misjudged workload seeds estimation error by hand; a real router also has to <em>learn</em> when its estimates drift.</li>
+    <li>Escalating one tier at a time is a policy choice — jumping straight to the top after a failure is also defensible when latency matters.</li>
+  </ul>
+
+  <p class="page-foot"><a href="/">Back to the lab</a></p>
+</main>
+<!-- pb-shell --><a class="pb-shell" href="https://github.com/anhquanbd2021/anthropic-agent-stack" title="anthropic-agent-stack — an Article Playbook demo (view source)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="9" height="9" rx="2" fill="#2dd4bf"/><rect x="13" y="2" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="2" y="13" width="9" height="9" rx="2" fill="#2dd4bf" opacity=".45"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="#2dd4bf"/></svg><b>anthropic-agent-stack</b><i>DEMO</i></a><!-- pb-shell --><!-- pb-back --><a class="pb-back" id="pb-back" href="https://github.com/anhquanbd2021/anthropic-agent-stack" title="Back to the article — anthropic-agent-stack">← Article <i>PLAYBOOK</i></a><script>(function(){var a=document.getElementById('pb-back');if(!a)return;var h=location.hostname;if(/^(localhost|127\.0\.0\.1|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/.test(h)){a.href='//'+h+':'+(/^(localhost|127\.0\.0\.1)$/.test(h)?'1234':'30082')+'/microsites/article.html?slug=anthropic-agent-stack';}})();</script><!-- pb-back --></body>
+</html>
